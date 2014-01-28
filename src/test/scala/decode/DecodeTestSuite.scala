@@ -5,34 +5,34 @@ import com.lunatech.urldecode.Decoder._
 
 class DecodeTestSuite extends Specification {
 
-  "The '/download/images%E2%82%AC/fromage+pat%C3%A9.png' path" should {
-    "must be decoded " in {
+  "The decoder " should {
+    " let the normal strings unchanged" in {
+      decode("Just a normal string") mustEqual "Just a normal string"
+    }
+  }
+
+  "The decoder " should {
+    " decode the path of an url and replace %-hexadecimal encoded characters " in {
       decode("/download/images%E2%82%AC/fromage+pat%C3%A9.png") mustEqual "/download/images€/fromage+paté.png"
     }
   }
-  
-  "The '/download/images/fromage+pat%C3%A9%E2%82%AC.png' path" should {
-    "must be decoded " in {
-      decode("/download/images/fromage+pat%C3%A9%E2%82%AC.png") mustEqual "/download/images/fromage+paté€.png"
+
+  "The decoder " should {
+    " let incorrect %-hexadecimal encoded characters unchanged" in {
+      decode("/download/images/fromage+pat%HQ.png") mustEqual "/download/images/fromage+pat%HQ.png"
     }
   }
-  
-   "The '/download/images/fromage+pat%C3%A9.png' path" should {
-    "must be decoded " in {
-      decode("/download/images/fromage+pat%C3%A9.png") mustEqual "/download/images/fromage+paté.png"
+
+  "The decoder " should {
+    " replace '%C3%A9' %-hexadecimal by é " in {
+      decodeBytes(List("C3", "A9")) mustEqual "é"
     }
   }
-  
-  "The '%C3%A9' character" should {
-    "must be decoded " in {
-      decodeBytes(List("C3","A9"))  mustEqual "é"
+
+  "The decoder " should {
+    " replace '%E2%82%AC' %-hexadecimal by é " in {
+      decodeBytes(List("E2", "82", "AC")) mustEqual "€"
     }
   }
-  
-  
-   "The '%E2%82%AC' character" should {
-    "must be decoded " in {
-       decodeBytes(List("E2","82","AC")) mustEqual "€"
-    }
-  }
+
 }
