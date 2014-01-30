@@ -1,7 +1,7 @@
 package com.lunatech.urldecode
 
 import java.nio.charset.Charset
-import java.net.URISyntaxException
+import java.lang.IllegalArgumentException
 
 object Decoder {
 
@@ -16,7 +16,7 @@ object Decoder {
        if (x == i) {
         if (encoded(i) == '%') {
           if (i + 2 >= encoded.length)
-            throw new URISyntaxException(str, "Invalid URL-encoded string at char " + i);
+            throw new IllegalArgumentException("Incomplete trailing escape (%) pattern " + i);
           else {
             i = i + 1
             val first = encoded(i)
@@ -60,6 +60,6 @@ object Decoder {
     case 'E' => 14
     case 'f' => 15
     case 'F' => 15
-    case _ => throw new URISyntaxException(String.valueOf(b), "Invalid URL-encoded string");
+    case _ => throw new IllegalArgumentException("Illegal hex characters" );
   }
 }

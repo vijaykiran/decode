@@ -21,7 +21,7 @@ class DecodeTestSuite extends Specification {
 
   "The decoder " should {
     " should throw an exception for incorrect %-hexadecimal " in {
-      decode2("/download/images/fromage+pat%HQ.png") must throwA[URISyntaxException]
+      decode2("/download/images/fromage+pat%HQ.png") must throwA[IllegalArgumentException]
     }
   }
 
@@ -34,13 +34,13 @@ class DecodeTestSuite extends Specification {
   
   "The decoder " should {
     " should throw an exception for %QQ " in {
-      decode2("%QQ") must throwA[URISyntaxException]
+      decode2("%QQ") must throwA[IllegalArgumentException]
     }
   }
   
   "The decoder " should {
     " should throw an exception for % " in {
-      decode2("%") must throwA[URISyntaxException]
+      decode2("%") must throwA[IllegalArgumentException]
     }
   }
 }
