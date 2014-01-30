@@ -7,7 +7,13 @@ object Decoder {
 
   val charset = Charset.forName("UTF-8")
 
-  def decode2(str: String): String = {
+  /**
+   * Decode %-Hexadecimal encoded characters from a given string
+   * 
+   * Input:  String 
+   * Output: String
+   */
+  def decode(str: String): String = {
     val encoded = str.getBytes(charset)
     val decoded = new Array[Byte](encoded.length)
     var i = 0
@@ -37,6 +43,7 @@ object Decoder {
     new String(decoded, 0, j, charset)
   }                                             
 
+  
   def fromHexToInt(b: Byte): Byte = b match {
     case '0' => 0
     case '1' => 1
