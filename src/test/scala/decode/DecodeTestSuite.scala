@@ -1,7 +1,7 @@
 package decode
 
 import org.specs2.mutable._
-import com.lunatech.urldecode.Decoder._
+import com.lunatech.urldecode.DecoderBis._
 
 import java.net.URISyntaxException
 
